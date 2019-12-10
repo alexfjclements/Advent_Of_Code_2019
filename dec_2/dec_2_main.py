@@ -1,4 +1,4 @@
-from dec_2.data import data
+from dec_2.data import data, test_data
 from dec_2.dec_2_calc import op_code_processor
 from pprint import pprint
 
