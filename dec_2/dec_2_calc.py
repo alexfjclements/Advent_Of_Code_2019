@@ -1,5 +1,6 @@
 def op_code_processor(input_list, reverse_value=False):
     new_dict = {}
+    operation_record = []
     counter = 0
     output = input_list
     operational_values = [1, 2]
@@ -12,11 +13,22 @@ def op_code_processor(input_list, reverse_value=False):
     for key, value in new_dict.items():
 
         if key % 4 == 0:
+
+            # TODO utilise operation record to reverse operations on new_dict
+
+            operation_record.append({"operator_value": value,
+                                     "noun": new_dict[new_dict[key + 1]],
+                                     "verb": new_dict[new_dict[key + 2]],
+                                     "target_index": new_dict[new_dict[key + 3]]})
+
             if value in operational_values:
                 if reverse_value is True:
+                    # Solution: store numbers and operations as they happen with the values they have when they happen.
+                    # This should be reversible. NB index may need to be reversed as well in the saved values? TODO
                     new_dict[new_dict[key + 3]] = reverse_value_analysis(key, value, new_dict)
                 else:
                     new_dict[new_dict[key + 3]] = value_analysis(key, value, new_dict)
+
             elif value == termination_value:
                 new_dict[key] = "PROGRAM TERMINATED"
                 final_values = list(new_dict.values())
@@ -25,7 +37,6 @@ def op_code_processor(input_list, reverse_value=False):
                 new_dict[key] = "1202 PROGRAM ALARM"
                 final_values = list(new_dict.values())
                 return final_values[:key]
-
     return output
 
 
